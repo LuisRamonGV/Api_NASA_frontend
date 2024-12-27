@@ -1,17 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
-export class NasaApodService {
-  private apiUrl = 'https://api.nasa.gov/planetary/apod';
-  private apiKey = 'DEMO_KEY';
+export class NasaApiService {
+    private readonly API_BASE_URL = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-  getApod(): Observable<any> {
-    return this.http.get(`${this.apiUrl}?api_key=${this.apiKey}`);
-  }
+    getApod(date?: string): Observable<any> {
+        let params = new HttpParams();
+        if (date) {
+            params = params.set('date', date);
+        }
+        return this.http.get(`${this.API_BASE_URL}/apod`, { params });
+    }
+
+    getApodsByRange(startDate: string, endDate?: string): Observable<any> {
+        let params = new HttpParams().set('start_date', startDate);
+        if (endDate) {
+            params = params.set('end_date', endDate);
+        }
+        return this.http.get(`${this.API_BASE_URL}/apods`, { params });
+    }
 }
