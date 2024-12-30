@@ -1,71 +1,36 @@
-<h1>Astronomy Picture of the Day</h1>
+<div class="container">
+  <div class="left-column">
+    <div class="forms">
+      <h2 class="forms-title">Astronomy Picture of the Day</h2>
+      <button mat-raised-button color="primary" (click)="getTodayApod()">Today</button>
+      <form (submit)="getApodByDate()" class="form-inline">
+        <input matInput type="date" [(ngModel)]="specificDate" name="specificDate" />
+        <button mat-raised-button color="accent">Search by Date</button>
+      </form>
+      <form (submit)="getApodsByRange()" class="form-inline">
+        <input matInput type="date" [(ngModel)]="startDate" name="startDate" />
+        <input matInput type="date" [(ngModel)]="endDate" name="endDate" />
+        <button mat-raised-button color="warn">Search by Range</button>
+      </form>
+    </div>    
+    <div class="description">
+      <p>{{ apod?.explanation }}</p>
+    </div>
+  </div>
 
-<!-- Botón para obtener la imagen del día -->
-<div>
-  <button (click)="getTodayApod()">Today's APOD</button>
-</div>
-
-<hr />
-
-<!-- Formulario para buscar por fecha específica -->
-<form (submit)="getApodByDate()">
-  <label for="specificDate">Search by Date:</label>
-  <input type="date" [(ngModel)]="specificDate" name="specificDate" />
-  <button type="submit">Search</button>
-</form>
-
-<!-- Formulario para buscar por rango de fechas -->
-<form (submit)="getApodsByRange()">
-  <label for="startDate">Start Date:</label>
-  <input type="date" [(ngModel)]="startDate" name="startDate" />
-
-  <label for="endDate">End Date:</label>
-  <input type="date" [(ngModel)]="endDate" name="endDate" />
-
-  <button type="submit">Search Range</button>
-</form>
-
-<hr />
-
-<!-- Mostrar una sola imagen (imagen del día o búsqueda por fecha específica) -->
-<div *ngIf="apod && !apodList.length; else multipleResults">
-  <h2>{{ apod.title }}</h2>
-  <p>{{ apod.date }}</p>
-  <img *ngIf="apod.media_type === 'image'" [src]="apod.url" [alt]="apod.title" />
-  <iframe
-    *ngIf="apod.media_type === 'video'"
-    [src]="apod.url"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
-  <p>{{ apod.explanation }}</p>
-</div>
-
-<!-- Mostrar múltiples resultados (búsqueda por rango de fechas) -->
-<ng-template #multipleResults>
-  <h2>APOD Results</h2>
-  <div *ngIf="apodList.length; else noResults">
-    <div *ngFor="let item of apodList" class="apod-item">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.date }}</p>
-      <img *ngIf="item.media_type === 'image'" [src]="item.url" [alt]="item.title" />
+  <div class="right-column">
+    <div class="header">
+      <h1>{{ apod?.title || "Astronomy Picture of the Day" }}</h1>
+      <p>{{ apod?.date }}</p>
+    </div>
+    <div class="image-container">
+      <img *ngIf="apod?.media_type === 'image'" [src]="apod?.url" [alt]="apod?.title" />
       <iframe
-        *ngIf="item.media_type === 'video'"
-        [src]="item.url"
+        *ngIf="apod?.media_type === 'video'"
+        [src]="apod?.url"
         frameborder="0"
         allowfullscreen
       ></iframe>
-      <p>{{ item.explanation }}</p>
-      <hr />
     </div>
   </div>
-</ng-template>
-
-<ng-template #noResults>
-  <p>No results found for the selected range.</p>
-</ng-template>
-
-<ng-template #loading>
-  <p *ngIf="!error">Loading...</p>
-  <p *ngIf="error" style="color: red;">{{ error }}</p>
-</ng-template>
+</div>
