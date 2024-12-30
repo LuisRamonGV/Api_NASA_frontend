@@ -91,31 +91,28 @@ export class ApodComponent implements OnInit {
   }
 
   getApodsByRange() {
-    if (this.startDate) {
+    if (this.startDate && this.endDate) {
       const start = new Date(this.startDate);
-      const end = this.endDate ? new Date(this.endDate) : new Date();
+      const end = new Date(this.endDate);
       const daysDifference = (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
   
       if (daysDifference > 6) {
         this.error = 'The range cannot exceed 6 days.';
-        return;
+        return; // Salir de la función si el rango es inválido
       } else if (daysDifference < 0) {
         this.error = 'The end date must be after the start date.';
-        return;
+        return; // Salir de la función si las fechas están invertidas
       }
   
       this.isLoading = true;
-      let url = `http://localhost:8080/apods?start_date=${this.startDate}`;
-      if (this.endDate) {
-        url += `&end_date=${this.endDate}`;
-      }
+      this.error = null; // Limpia cualquier mensaje de error previo
   
+      const url = `http://localhost:8080/apods?start_date=${this.startDate}&end_date=${this.endDate}`;
       this.http.get<any[]>(url).subscribe({
         next: (data) => {
           if (Array.isArray(data)) {
-            this.apodList = data; // Llena la lista de APODs
-            this.apod = null; // Limpia la visualización individual
-            this.error = null;
+            this.apodList = data;
+            this.apod = null;
           } else {
             this.error = 'Unexpected response format';
           }
@@ -127,8 +124,9 @@ export class ApodComponent implements OnInit {
           this.isLoading = false;
         },
       });
+    } else {
+      this.error = 'Both start and end dates are required.';
     }
   }
-  
   
 }

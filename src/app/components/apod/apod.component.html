@@ -4,33 +4,61 @@
       <h2 class="forms-title">Astronomy Picture of the Day</h2>
       <button mat-raised-button color="primary" (click)="getTodayApod()">Today</button>
       <form (submit)="getApodByDate()" class="form-inline">
+        <label>Buscar por fecha:</label>
         <input matInput type="date" [(ngModel)]="specificDate" name="specificDate" />
-        <button mat-raised-button color="accent">Search by Date</button>
+        <button mat-raised-button color="accent">Buscar</button>
       </form>
       <form (submit)="getApodsByRange()" class="form-inline">
+        <label>Entre:</label>
         <input matInput type="date" [(ngModel)]="startDate" name="startDate" />
         <input matInput type="date" [(ngModel)]="endDate" name="endDate" />
-        <button mat-raised-button color="warn">Search by Range</button>
+        <button mat-raised-button color="warn">Buscar</button>
       </form>
-    </div>    
+    </div>
     <div class="description">
       <p>{{ apod?.explanation }}</p>
     </div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
   </div>
 
   <div class="right-column">
-    <div class="header">
-      <h1>{{ apod?.title || "Astronomy Picture of the Day" }}</h1>
-      <p>{{ apod?.date }}</p>
+    <!-- Resultado individual -->
+    <div *ngIf="apodList.length === 0">
+      <div class="fullscreen-section">
+        <div class="header">
+          <h1>{{ apod?.title || "Astronomy Picture of the Day" }}</h1>
+          <p>{{ apod?.date }}</p>
+        </div>
+        <div class="image-container">
+          <img *ngIf="apod?.media_type === 'image'" [src]="apod?.url" [alt]="apod?.title" />
+          <iframe
+            *ngIf="apod?.media_type === 'video'"
+            [src]="apod?.url"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
     </div>
-    <div class="image-container">
-      <img *ngIf="apod?.media_type === 'image'" [src]="apod?.url" [alt]="apod?.title" />
-      <iframe
-        *ngIf="apod?.media_type === 'video'"
-        [src]="apod?.url"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
+
+    <!-- Resultados de búsqueda por rango -->
+    <div *ngFor="let item of apodList" class="fullscreen-section">
+      <div class="header">
+        <h1>{{ item.title }}</h1>
+        <p>{{ item.date }}</p>
+      </div>
+      <div class="image-container">
+        <img *ngIf="item.media_type === 'image'" [src]="item.url" [alt]="item.title" />
+        <iframe
+          *ngIf="item.media_type === 'video'"
+          [src]="item.url"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="description">
+        <p>{{ item.explanation }}</p>
+      </div>
     </div>
   </div>
 </div>
