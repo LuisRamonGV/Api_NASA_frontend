@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ApodComponent } from './components/apod/apod.component';
+import { Component } from '@angular/core'
+import { ApodComponent } from './components/apod/apod.component'
 
 @Component({
   selector: 'app-root',
