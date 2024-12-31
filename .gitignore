@@ -1,6 +1,7 @@
 # Ignorar configuraciones de editor
 .vscode/
 .idea/
+*.code-workspace
 
 # Node.js y Angular
 node_modules/
@@ -17,6 +18,7 @@ yarn-error.log*
 # Salidas de compilación y build
 dist/
 out/
+build/
 
 # Archivos del sistema operativo
 .DS_Store
@@ -39,4 +41,5 @@ test-results/
 *.swo
 *.lock
 
-.angular/cache/
+# Archivos relacionados con ESLint
+.eslintcache

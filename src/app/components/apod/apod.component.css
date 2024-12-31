@@ -1,12 +1,12 @@
 :root {
-  --color-primary: #005f73; /* Azul Teal */
-  --color-secondary: #0a9396; /* Turquesa */
-  --color-accent: #94d2bd; /* Verde claro */
-  --color-background: #001219; /* Azul oscuro */
-  --color-card: #ee9b00; /* Amarillo mostaza */
-  --color-text-light: #e9d8a6; /* Beige claro */
-  --color-text-muted: rgba(233, 216, 166, 0.7); /* Beige atenuado */
-  --color-error: #bb3e03; /* Rojo oscuro */
+  --color-primary: #005f73;
+  --color-secondary: #0a9396;
+  --color-accent: #94d2bd;
+  --color-background: #001219;
+  --color-card: #ee9b00;
+  --color-text-light: #e9d8a6;
+  --color-text-muted: rgba(233, 216, 166, 0.7);
+  --color-error: #bb3e03;
 }
 
 .fullscreen-section {
@@ -17,9 +17,9 @@
   animation: fadeIn 0.5s ease-out;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra horizontalmente */
-  justify-content: center; /* Centra verticalmente */
-  text-align: center; /* Centra el texto */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .header h1 {
@@ -124,6 +124,11 @@ button:hover {
   flex-direction: column;
   gap: 20px;
   padding: 20px;
+  background: var(--color-primary);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  max-height: calc(100vh - 40px); 
 }
 
 .fullscreen-section {
@@ -132,6 +137,8 @@ button:hover {
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   animation: fadeIn 0.5s ease-out;
+  margin-bottom: 20px;
+  color: var(--color-text-light);
 }
 
 .image-container {
@@ -159,8 +166,10 @@ button:hover {
 .description {
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.9);
   padding: 10px;
+  border-radius: 10px;
+  text-align: justify;
 }
 
 .error-message {
@@ -190,7 +199,7 @@ button:hover {
   margin-top: 15px;
   font-size: 1.2rem;
   color: #ffffff;
-  animation: fadeIn 1.5s infinite; /* Efecto animado para el texto */
+  animation: fadeIn 1.5s infinite;
 }
 
 @keyframes fadeIn {

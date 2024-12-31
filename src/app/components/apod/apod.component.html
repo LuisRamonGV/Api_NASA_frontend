@@ -37,7 +37,7 @@
   </div>
 
   <div class="right-column">
-    <!-- Resultado individual -->
+    <!-- Unique picture -->
     <div *ngIf="apodList.length === 0">
       <div class="fullscreen-section">
         <div class="header">
@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <!-- Resultados de búsqueda por rango -->
+    <!-- Many Pictures -->
     <div *ngFor="let item of apodList" class="fullscreen-section">
       <div class="header">
         <h1>{{ item.title }}</h1>
