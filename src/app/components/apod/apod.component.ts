@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { CarouselModule } from 'ngx-owl-carousel-o'
 import { MatDividerModule } from '@angular/material/divider'
+import { MatIconModule } from '@angular/material/icon'
 
 
 @Component({
@@ -24,7 +25,8 @@ import { MatDividerModule } from '@angular/material/divider'
     MatCardModule,
     MatProgressSpinnerModule,
     CarouselModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
   ],
 })
 
@@ -36,6 +38,8 @@ export class ApodComponent implements OnInit {
   endDate: string = ''
   specificDate: string = ''
   isLoading: boolean = false
+  isInfoBoxVisible = false
+
   private imagesLoaded: number = 0
   private totalImages: number = 0
 
@@ -144,5 +148,9 @@ export class ApodComponent implements OnInit {
     this.error = 'Error fetching data'
     console.error(err)
     this.resetLoading()
+  }
+
+  toggleInfoBox(): void {
+    this.isInfoBoxVisible = !this.isInfoBoxVisible;
   }
 }

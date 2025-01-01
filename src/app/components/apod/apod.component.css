@@ -128,7 +128,8 @@ button:hover {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
-  max-height: calc(100vh - 40px); 
+  max-height: calc(100vh - 40px);
+  height: 95%;
 }
 
 .fullscreen-section {
@@ -148,7 +149,7 @@ button:hover {
   overflow: hidden;
   border-radius: 15px;
   width: 100%;
-  height: auto;
+  height: 60cap;
 }
 
 .image-container img,
@@ -201,6 +202,48 @@ button:hover {
   color: #ffffff;
   animation: fadeIn 1.5s infinite;
 }
+
+.info-box {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  width: 700px;
+  padding: 20px;
+  background: var(--color-card);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  color: #1a1a1a;
+  text-align: center;
+  z-index: 1000;
+}
+
+.info-button-container {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.info-button-container button {
+  all: unset;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 100%;
+}
+
+.info-box button {
+  margin: 10px auto 0;
+  display: block;
+}
+
 
 @keyframes fadeIn {
   0%, 100% {

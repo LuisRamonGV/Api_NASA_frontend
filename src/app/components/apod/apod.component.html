@@ -15,6 +15,23 @@
   </div>     
   <div class="left-column">
     <div class="forms">
+      <div class="info-button-container">
+        <button mat-icon-button (click)="toggleInfoBox()">
+          <mat-icon>info</mat-icon>
+        </button>
+        <div *ngIf="isInfoBoxVisible" class="info-box">
+          <p>Disclaimer</p>
+          <p>
+            This project was developed solely for educational purposes and to demonstrate the use of Angular, Spring-Boot and NASA's 
+            public APIs. All images and information provided within this application are sourced from NASA's 
+            official APIs and are their intellectual property.
+            This project is not affiliated with or endorsed by NASA. The Astronomy Picture of the Day (APOD) content is 
+            publicly available through NASA's APOD API and is used here in compliance with their guidelines for non-commercial 
+            and educational use. For official and accurate information, please visit NASA's official website.
+          </p>
+          <button mat-raised-button color="primary" (click)="toggleInfoBox()">Close</button>
+        </div>
+      </div>      
       <h2 class="forms-title">Astronomy Picture of the Day</h2>
       <button mat-raised-button color="primary" (click)="getTodayApod()">Today</button>
       <form (submit)="getApodByDate()" class="form-inline">
