@@ -6,7 +6,7 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class NasaApiService {
-  private readonly API_BASE_URL = 'http://localhost:8080'
+  private readonly API_BASE_URL = 'https://api.apodnasa.top';
 
   constructor(private http: HttpClient) {}
 

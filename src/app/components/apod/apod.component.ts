@@ -61,7 +61,7 @@ export class ApodComponent implements OnInit {
 
   getTodayApod() {
     this.startLoading()
-    this.http.get('http://localhost:8080/apod').subscribe({
+    this.http.get('https://api.apodnasa.top/apod').subscribe({
       next: (data) => {
         this.apod = data
         this.apodList = []
@@ -76,7 +76,7 @@ export class ApodComponent implements OnInit {
     if (this.specificDate) {
       this.startLoading()
       this.http
-        .get(`http://localhost:8080/apod?date=${this.specificDate}`)
+        .get(`https://api.apodnasa.top/apod?date=${this.specificDate}`)
         .subscribe({
           next: (data) => {
             this.apod = data
@@ -106,7 +106,7 @@ export class ApodComponent implements OnInit {
       this.startLoading()
       this.error = null
 
-      const url = `http://localhost:8080/apods?start_date=${this.startDate}&end_date=${this.endDate}`
+      const url = `https://api.apodnasa.top/apods?start_date=${this.startDate}&end_date=${this.endDate}`
       this.http.get<any[]>(url).subscribe({
         next: (data) => {
           if (Array.isArray(data)) {
