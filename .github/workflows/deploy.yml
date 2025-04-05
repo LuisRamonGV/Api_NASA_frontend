@@ -26,10 +26,3 @@ jobs:
 
     - name: Build Frontend
       run: npm run build
-
-    - name: Archive Build Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: frontend-build
-        path: dist/nasa-apod-frontend/browser
-
