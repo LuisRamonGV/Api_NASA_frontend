@@ -1,0 +1,31 @@
+<div class="right-column space-y-4">
+    <ng-container *ngIf="apod && (!apodList || apodList.length === 0)">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ apod.title || 'Astronomy Picture of the Day' }}</mat-card-title>
+          <mat-card-subtitle>{{ apod.date }}</mat-card-subtitle>
+        </mat-card-header>
+        <img *ngIf="apod.media_type === 'image'" [src]="apod.url" [alt]="apod.title" class="w-full" />
+        <iframe *ngIf="apod.media_type === 'video'" [src]="apod.url" frameborder="0" allowfullscreen class="w-full h-64"></iframe>
+        <mat-card-content>
+          <p>{{ apod.explanation }}</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  
+    <ng-container *ngIf="apodList && apodList.length > 0">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <mat-card *ngFor="let item of apodList">
+          <mat-card-header>
+            <mat-card-title>{{ item.title }}</mat-card-title>
+            <mat-card-subtitle>{{ item.date }}</mat-card-subtitle>
+          </mat-card-header>
+          <img *ngIf="item.media_type === 'image'" [src]="item.url" [alt]="item.title" class="w-full" />
+          <iframe *ngIf="item.media_type === 'video'" [src]="item.url" frameborder="0" allowfullscreen class="w-full h-64"></iframe>
+          <mat-card-content>
+            <p>{{ item.explanation }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>

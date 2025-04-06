@@ -1,0 +1,68 @@
+<mat-card class="p-4">
+  <div class="flex justify-end">
+    <button mat-icon-button (click)="toggleInfoBox.emit()">
+      <mat-icon>info</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="isInfoBoxVisible" class="info-box mt-2 p-4">
+    <p class="font-bold">Disclaimer</p>
+    <p class="text-sm">
+      This project was developed solely for educational purposes and to demonstrate the use of Angular,
+      Spring-Boot and NASA's public APIs. All images and information provided within this application are
+      sourced from NASA's official APIs and are their intellectual property. This project is not affiliated
+      with or endorsed by NASA. The Astronomy Picture of the Day (APOD) content is publicly available through
+      NASA's APOD API and is used here in compliance with their guidelines for non-commercial and educational
+      use. For official and accurate information, please visit NASA's official website.
+    </p>
+  </div>
+
+  <h2 class="forms-title text-center text-xl font-bold mt-4">Astronomy Picture of the Day</h2>
+
+  <button mat-raised-button color="primary" class="w-full mt-4" (click)="getTodayApod.emit()">Today</button>
+
+  <form (ngSubmit)="getApodByDate.emit()" class="mt-4 space-y-2">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Buscar por fecha</mat-label>
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="specificDate"
+        (ngModelChange)="specificDateChange.emit($event)"
+        name="specificDate" />
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit" class="w-full">Buscar</button>
+  </form>
+
+  <form (ngSubmit)="getApodsByRange.emit()" class="mt-4 space-y-2">
+    <div class="flex flex-col md:flex-row gap-2">
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Entre</mat-label>
+        <input
+          matInput
+          type="date"
+          [(ngModel)]="startDate"
+          (ngModelChange)="startDateChange.emit($event)"
+          name="startDate" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>y</mat-label>
+        <input
+          matInput
+          type="date"
+          [(ngModel)]="endDate"
+          (ngModelChange)="endDateChange.emit($event)"
+          name="endDate" />
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" type="submit" class="w-full">Buscar</button>
+  </form>
+
+  <div class="description mt-4" *ngIf="apod">
+    <p>{{ apod.explanation }}</p>
+  </div>
+
+  <div *ngIf="error" class="error-message mt-4 p-2 bg-red-200 text-red-800 rounded">
+    {{ error }}
+  </div>
+</mat-card>

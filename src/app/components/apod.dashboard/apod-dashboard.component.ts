@@ -1,59 +1,33 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
-import { MatButtonModule } from '@angular/material/button'
-import { MatInputModule } from '@angular/material/input'
-import { MatCardModule } from '@angular/material/card'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { CarouselModule } from 'ngx-owl-carousel-o'
-import { MatDividerModule } from '@angular/material/divider'
-import { MatIconModule } from '@angular/material/icon'
 
+import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component'
+import { LeftColumnComponent } from '../left-column/left-column.component'
+import { RightColumnComponent } from '../right-column/right-column.component'
 
 @Component({
-  selector: 'app-apod',
-  templateUrl: './apod.component.html',
-  styleUrls: ['./apod.component.css'],
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-apod-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    CarouselModule,
-    MatDividerModule,
-    MatIconModule
+    LoadingOverlayComponent,
+    LeftColumnComponent,
+    RightColumnComponent
   ],
+  templateUrl: './apod-dashboard.component.html'
 })
-
-export class ApodComponent implements OnInit {
+export class ApodComponentDashboard implements OnInit {
   apod: any
   apodList: any[] = []
-  error: string | null = null
+  error: string = ''
   startDate: string = ''
   endDate: string = ''
   specificDate: string = ''
   isLoading: boolean = false
   isInfoBoxVisible = false
 
-  private imagesLoaded: number = 0
-  private totalImages: number = 0
-
   constructor(private http: HttpClient) {}
-
-  carouselOptions = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    dots: true,
-    autoplay: true,
-    autoplayTimeout: 5000,
-    autoplayHoverPause: true
-  }
 
   ngOnInit() {
     this.getTodayApod()
@@ -61,15 +35,16 @@ export class ApodComponent implements OnInit {
 
   getTodayApod() {
     this.startLoading()
-    this.http.get('https://api.apodnasa.top/apod').subscribe({
-      next: (data) => {
-        this.apod = data
-        this.apodList = []
-        this.error = null
-        this.resetLoading()
-      },
-      error: (err) => this.handleError(err)
-    })
+    this.http.get('https://api.apodnasa.top/apod')
+      .subscribe({
+        next: (data) => {
+          this.apod = data
+          this.apodList = []
+          this.error = ''
+          this.resetLoading()
+        },
+        error: (err) => this.handleError(err)
+      })
   }
 
   getApodByDate() {
@@ -81,7 +56,7 @@ export class ApodComponent implements OnInit {
           next: (data) => {
             this.apod = data
             this.apodList = []
-            this.error = null
+            this.error = ''
             this.resetLoading()
           },
           error: (err) => this.handleError(err),
@@ -104,7 +79,7 @@ export class ApodComponent implements OnInit {
       }
 
       this.startLoading()
-      this.error = null
+      this.error = ''
 
       const url = `https://api.apodnasa.top/apods?start_date=${this.startDate}&end_date=${this.endDate}`
       this.http.get<any[]>(url).subscribe({
@@ -112,7 +87,6 @@ export class ApodComponent implements OnInit {
           if (Array.isArray(data)) {
             this.apodList = data
             this.apod = null
-            this.totalImages = data.length
           } else {
             this.error = 'Unexpected response format'
           }
@@ -125,23 +99,12 @@ export class ApodComponent implements OnInit {
     }
   }
 
-  onImageLoad() {
-    this.imagesLoaded++
-    if (this.imagesLoaded >= this.totalImages) {
-      this.resetLoading()
-    }
-  }
-
   startLoading() {
     this.isLoading = true
-    this.imagesLoaded = 0
-    this.totalImages = 0
   }
 
   resetLoading() {
     this.isLoading = false
-    this.imagesLoaded = 0
-    this.totalImages = 0
   }
 
   handleError(err: any) {
@@ -151,6 +114,6 @@ export class ApodComponent implements OnInit {
   }
 
   toggleInfoBox(): void {
-    this.isInfoBoxVisible = !this.isInfoBoxVisible;
+    this.isInfoBoxVisible = !this.isInfoBoxVisible
   }
 }

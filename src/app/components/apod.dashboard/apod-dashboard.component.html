@@ -1,0 +1,21 @@
+<app-loading-overlay *ngIf="isLoading"></app-loading-overlay>
+
+<div class="container flex flex-col md:flex-row gap-4 p-4">
+  <app-left-column
+    [apod]="apod"
+    [error]="error"
+    [isInfoBoxVisible]="isInfoBoxVisible"
+    [(specificDate)]="specificDate"
+    [(startDate)]="startDate"
+    [(endDate)]="endDate"
+    (getTodayApod)="getTodayApod()"
+    (getApodByDate)="getApodByDate()"
+    (getApodsByRange)="getApodsByRange()"
+    (toggleInfoBox)="toggleInfoBox()">
+  </app-left-column>
+
+  <app-right-column
+    [apod]="apod"
+    [apodList]="apodList">
+  </app-right-column>
+</div>
