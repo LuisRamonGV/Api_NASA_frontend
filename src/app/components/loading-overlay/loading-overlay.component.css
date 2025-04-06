@@ -1,4 +1,3 @@
-/* Ejemplo mínimo, ya que Tailwind puede encargarse de la mayoría */
 .loading-overlay {
     background-color: rgba(0, 0, 0, 0.9);
     position: fixed;
@@ -8,4 +7,3 @@
     height: 100%;
     z-index: 1000;
   }
-  

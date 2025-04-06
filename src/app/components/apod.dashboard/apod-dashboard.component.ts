@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { CommonModule } from '@angular/common'
 
-// Importa los componentes hijos con la ruta correcta
 import { LoadingOverlayComponent } from '../loading-overlay/loading-overlay.component'
 import { LeftColumnComponent } from '../left-column/left-column.component'
 import { RightColumnComponent } from '../right-column/right-column.component'
@@ -11,20 +10,17 @@ import { RightColumnComponent } from '../right-column/right-column.component'
   selector: 'app-apod-dashboard',
   standalone: true,
   imports: [
-    CommonModule, // Para *ngIf, *ngFor, etc.
-    LoadingOverlayComponent, // Para <app-loading-overlay>
-    LeftColumnComponent, // Para <app-left-column>
-    RightColumnComponent // Para <app-right-column>
+    CommonModule,
+    LoadingOverlayComponent,
+    LeftColumnComponent,
+    RightColumnComponent
   ],
-  templateUrl: './apod-dashboard.component.html',
-  styleUrls: ['./apod-dashboard.component.css'],
+  templateUrl: './apod-dashboard.component.html'
 })
 export class ApodComponentDashboard implements OnInit {
-  // Si tienes propiedades que se pasan a los hijos, asegúrate de que sus tipos coincidan.
-  // Por ejemplo, si LeftColumn espera error: string, declara error como string:
   apod: any
   apodList: any[] = []
-  error: string = '' // Cambié de string | null a string para evitar el error de binding
+  error: string = ''
   startDate: string = ''
   endDate: string = ''
   specificDate: string = ''
