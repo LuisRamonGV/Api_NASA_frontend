@@ -14,6 +14,7 @@ This project is a web client designed to consume the **Astronomy Picture of the 
   - Angular Material (for date pickers and additional styling)
   - ESLint (to maintain clean and structured code)
 - **CSS Frameworks:**
+  - Tailwind
   - Custom design with astronomy-inspired colors.
 
 ## 📦 Prerequisites
