@@ -1,11 +1,11 @@
 import { Component } from '@angular/core'
-import { ApodComponent } from './components/apod/apod.component'
+import { ApodComponentDashboard } from './components/apod.dashboard/apod-dashboard.component'
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [ApodComponent],
+  imports: [ApodComponentDashboard]
 })
 export class AppComponent {}
