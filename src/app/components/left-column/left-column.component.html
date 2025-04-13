@@ -1,68 +1,90 @@
-<mat-card class="p-4">
-  <div class="flex justify-end">
-    <button mat-icon-button (click)="toggleInfoBox.emit()">
-      <mat-icon>info</mat-icon>
-    </button>
-  </div>
+<mat-card
+  class="flex flex-col w-full h-full bg-gradient-to-br from-[#1b095a] via-[#271250] to-[#1b095a] text-textLight p-6 md:p-8 rounded-none md:rounded-s-2xl shadow-space-card">
 
-  <div *ngIf="isInfoBoxVisible" class="info-box mt-2 p-4">
-    <p class="font-bold">Disclaimer</p>
-    <p class="text-sm">
+  <div class="flex items-center gap-3 mb-6 md:mb-8">
+    <button mat-icon-button
+            (click)="toggleInfoBox.emit()"
+            class="flex items-center justify-center text-accent hover:text-secondary transition duration-200 ease-in-out hover:scale-105 ml-1 md:ml-2"
+            title="Click for more information">
+      <mat-icon class="text-[22px] md:text-[26px] leading-[1]">info</mat-icon>
+    </button>
+    <h1 class="text-2xl md:text-3xl font-bold text-accent drop-shadow-sm">
+      Astronomy Picture of the Day
+    </h1>
+  </div>
+  
+  
+
+  <div *ngIf="isInfoBoxVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" (click)="toggleInfoBox.emit()">
+  <div class="bg-primary rounded-xl max-w-md w-full p-6 shadow-xl border border-secondary relative"
+       (click)="$event.stopPropagation()">
+    <button mat-icon-button (click)="toggleInfoBox.emit()"
+            class="absolute top-2 right-2 text-white hover:text-accent">
+      <mat-icon>close</mat-icon>
+    </button>
+    <h2 class="text-xl font-bold text-textLight mb-2">Disclaimer</h2>
+    <p class="text-textLight text-opacity-90 text-sm leading-relaxed">
       This project was developed solely for educational purposes and to demonstrate the use of Angular,
-      Spring-Boot and NASA's public APIs. All images and information provided within this application are
-      sourced from NASA's official APIs and are their intellectual property. This project is not affiliated
-      with or endorsed by NASA. The Astronomy Picture of the Day (APOD) content is publicly available through
-      NASA's APOD API and is used here in compliance with their guidelines for non-commercial and educational
-      use. For official and accurate information, please visit NASA's official website.
+      Spring Boot, and NASA's public APIs. All images and information provided within this application
+      are sourced from NASA's official APIs and are their intellectual property.
     </p>
   </div>
+</div>
 
-  <h2 class="forms-title text-center text-xl font-bold mt-4">Astronomy Picture of the Day</h2>
 
-  <button mat-raised-button color="primary" class="w-full mt-4" (click)="getTodayApod.emit()">Today</button>
 
-  <form (ngSubmit)="getApodByDate.emit()" class="mt-4 space-y-2">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Buscar por fecha</mat-label>
-      <input
-        matInput
-        type="date"
-        [(ngModel)]="specificDate"
-        (ngModelChange)="specificDateChange.emit($event)"
-        name="specificDate" />
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" class="w-full">Buscar</button>
-  </form>
+  <div class="flex flex-col gap-6 md:gap-8 flex-1 pr-1">
 
-  <form (ngSubmit)="getApodsByRange.emit()" class="mt-4 space-y-2">
-    <div class="flex flex-col md:flex-row gap-2">
-      <mat-form-field appearance="outline" class="flex-1">
-        <mat-label>Entre</mat-label>
-        <input
-          matInput
-          type="date"
-          [(ngModel)]="startDate"
-          (ngModelChange)="startDateChange.emit($event)"
-          name="startDate" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="flex-1">
-        <mat-label>y</mat-label>
-        <input
-          matInput
-          type="date"
-          [(ngModel)]="endDate"
-          (ngModelChange)="endDateChange.emit($event)"
-          name="endDate" />
-      </mat-form-field>
+    <button mat-raised-button
+            class="w-full py-3 md:py-4 text-base md:text-lg font-bold rounded-xl shadow-lg text-white bg-gradient-to-r from-accent to-secondary hover:from-secondary hover:to-accent transition duration-300 ease-in-out"
+            (click)="getTodayApod.emit()">
+      Today's Cosmic Image
+    </button>
+
+    <div class="space-y-4">
+      <h3 class="text-lg md:text-xl font-semibold text-secondary px-1">Explore Archives</h3>
+
+      <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+        <mat-form-field appearance="outline" class="w-full">
+          <input matInput [matDatepicker]="picker"
+                 [(ngModel)]="specificDate"
+                 class="h-12 md:h-14"
+                 placeholder="Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button
+                class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">
+          Search
+        </button>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-date-range-input [rangePicker]="rangePicker" [(ngModel)]="dateRange">
+            <input matStartDate placeholder="Start" class="h-12 md:h-14">
+            <input matEndDate placeholder="End" class="h-12 md:h-14">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+          <mat-date-range-picker #rangePicker></mat-date-range-picker>
+        </mat-form-field>
+        <button mat-raised-button
+                class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">
+          Search
+        </button>
+      </div>
     </div>
-    <button mat-raised-button color="primary" type="submit" class="w-full">Buscar</button>
-  </form>
 
-  <div class="description mt-4" *ngIf="apod">
-    <p>{{ apod.explanation }}</p>
-  </div>
+    <div
+      class="hidden md:block p-4 md:p-6 bg-white/5 border-l-[3px] border-accent rounded-xl shadow-custom max-h-[300px] overflow-y-auto">
+      <p class="text-white/90 text-base leading-relaxed italic tracking-wide">
+        🌌 This is a test description for the Astronomy Picture of the Day. You are amazing, uwu 💜
+      </p>
+    </div>
 
-  <div *ngIf="error" class="error-message mt-4 p-2 bg-red-200 text-red-800 rounded">
-    {{ error }}
+    <div *ngIf="error"
+         class="p-3 md:p-4 bg-error/90 text-textLight rounded-xl mt-2 z-10 animate-fade-in">
+      ⚠️ {{ error }}
+    </div>
   </div>
 </mat-card>
