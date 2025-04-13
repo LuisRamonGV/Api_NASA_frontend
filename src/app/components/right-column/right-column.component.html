@@ -2,19 +2,21 @@
   <ng-container *ngIf="apod && (!apodList || apodList.length === 0)">
     <div class="max-h-[90vh] overflow-hidden">
       <mat-card class="bg-gradient-to-br from-[#1b095a] via-[#2e003e] to-[#1b095a] text-textLight border border-accent shadow-space-card rounded-xl overflow-hidden">
-        <mat-card-header class="pb-2">
-          <mat-card-title class="text-accent text-xl md:text-2xl font-bold drop-shadow-sm">
+        <mat-card-header class="flex flex-col items-center text-center p-6 pb-2">
+          <mat-card-title class="text-accent text-2xl font-bold drop-shadow-sm leading-tight">
             {{ apod.title || 'Astronomy Picture of the Day' }}
           </mat-card-title>
-          <mat-card-subtitle class="text-secondary text-sm">
+          <mat-card-subtitle class="!text-white/70 text-sm mt-1">
             {{ apod.date }}
           </mat-card-subtitle>
         </mat-card-header>
 
-        <img *ngIf="apod.media_type === 'image'" 
-             [src]="apod.url" 
-             [alt]="apod.title" 
-             class="w-full max-h-[500px] object-contain rounded-lg shadow-lg" />
+        <div class="w-full flex-grow flex justify-center items-center">
+          <img *ngIf="apod.media_type === 'image'" 
+               [src]="apod.url" 
+               [alt]="apod.title"
+               class="h-full w-auto max-h-[70vh] rounded-lg shadow-lg object-contain" />
+        </div>
 
         <iframe *ngIf="apod.media_type === 'video'" 
                 [src]="getSafeUrl(apod.url)"
@@ -38,7 +40,7 @@
     <div class="max-h-[95vh] overflow-y-auto pr-1">
       <div class="grid grid-cols-1 gap-6">
         <mat-card *ngFor="let item of apodList"
-                  class="bg-card/10 text-textLight border border-secondary shadow-custom rounded-xl overflow-hidden">
+                  class="bg-gradient-to-br from-[#1b095a] via-[#2e003e] to-[#1b095a] text-textLight border border-secondary shadow-space-card rounded-xl overflow-hidden">
           <mat-card-header class="pb-2">
             <mat-card-title class="text-accent text-lg font-semibold">
               {{ item.title }}
@@ -48,10 +50,12 @@
             </mat-card-subtitle>
           </mat-card-header>
 
-          <img *ngIf="item.media_type === 'image'" 
-               [src]="item.url" 
-               [alt]="item.title" 
-               class="w-full max-h-[400px] object-contain rounded-md shadow" />
+          <div class="w-full flex justify-center items-center">
+            <img *ngIf="item.media_type === 'image'" 
+                 [src]="item.url" 
+                 [alt]="item.title" 
+                 class="max-h-[65vh] w-auto object-contain rounded-xl shadow-lg" />
+          </div>          
 
           <iframe *ngIf="item.media_type === 'video'" 
                   [src]="getSafeUrl(item.url)" 

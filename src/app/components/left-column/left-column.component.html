@@ -64,41 +64,48 @@
     <div class="space-y-4">
       <h3 class="text-lg md:text-xl font-semibold text-secondary px-1">Explore Archives</h3>
 
-      <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-        <mat-form-field appearance="outline" class="w-full">
-          <input matInput [matDatepicker]="picker"
-                 [(ngModel)]="specificDate"
-                 class="h-12 md:h-14"
-                 placeholder="Date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <button mat-raised-button
-                class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">
-          Search
-        </button>
-      </div>
+      <form (ngSubmit)="getApodByDate.emit()" class="mt-4 space-y-2">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+          <mat-form-field appearance="outline" class="w-4/6">
+            <input matInput [matDatepicker]="picker"
+                  [(ngModel)]="specificDate"
+                  (ngModelChange)="specificDateChange.emit($event)"
+                  name="specificDate"
+                  class="h-12 md:h-14 !text-white placeholder-white/70"
+                  placeholder="Date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button
+                  class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">
+            Search
+          </button>
+        </div>
+      </form>
 
-      <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
-        <mat-form-field appearance="outline" class="w-full">
-          <mat-date-range-input [rangePicker]="rangePicker" [(ngModel)]="dateRange">
-            <input matStartDate placeholder="Start" class="h-12 md:h-14">
-            <input matEndDate placeholder="End" class="h-12 md:h-14">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-          <mat-date-range-picker #rangePicker></mat-date-range-picker>
-        </mat-form-field>
-        <button mat-raised-button
-                class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">
-          Search
-        </button>
-      </div>
+      <form (ngSubmit)="onSubmitDateRange()" class="space-y-2">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-4 items-center">
+          <mat-form-field appearance="outline" class="w-4/6">
+            <mat-date-range-input [rangePicker]="rangePicker">
+              <input matStartDate [(ngModel)]="internalStart" name="internalStart" placeholder="Start" class="h-12 md:h-14 !text-white placeholder-white/70" />
+              <input matEndDate [(ngModel)]="internalEnd" name="internalEnd" placeholder="End" class="h-12 md:h-14 !text-white placeholder-white/70" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #rangePicker></mat-date-range-picker>
+          </mat-form-field>
+          <button mat-raised-button
+                  type="submit"
+                  class="w-full md:w-40 h-12 md:h-[56px] text-base md:text-lg rounded-xl bg-gradient-to-r from-secondary to-primary text-white hover:brightness-110 transition">            Buscar
+          </button>
+        </div>
+      </form>
     </div>
 
     <div
-      class="hidden md:block p-4 md:p-6 bg-white/5 border-l-[3px] border-accent rounded-xl shadow-custom max-h-[300px] overflow-y-auto">
+      *ngIf="apod?.explanation"
+      class="hidden md:block p-4 md:p-6 bg-white/5 border-l-[3px] border-accent rounded-xl shadow-custom max-h-[70vh] overflow-y-auto">
       <p class="text-white/90 text-base leading-relaxed italic tracking-wide">
-        {{ apod.description }}
+        {{ apod.explanation }}
       </p>
     </div>
 

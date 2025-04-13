@@ -57,16 +57,24 @@ export class LeftColumnComponent {
   @Output() startDateChange = new EventEmitter<string>()
   @Output() endDateChange = new EventEmitter<string>()
 
-  onStartDateChange(event: any) {
-    const date = event.value?.toISOString().split('T')[0] || ''
-    this.startDate = date
-    this.startDateChange.emit(date)
-  }
+  internalStart: Date | null = null
+  internalEnd: Date | null = null
 
-  onEndDateChange(event: any) {
-    const date = event.value?.toISOString().split('T')[0] || ''
-    this.endDate = date
-    this.endDateChange.emit(date)
+  onSubmitDateRange() {
+    if (!this.internalStart || !this.internalEnd) {
+      return
+    }
+
+    const formattedStart = this.internalStart.toISOString().split('T')[0]
+    const formattedEnd = this.internalEnd.toISOString().split('T')[0]
+
+    this.startDate = formattedStart
+    this.endDate = formattedEnd
+
+    this.startDateChange.emit(formattedStart)
+    this.endDateChange.emit(formattedEnd)
+
+    this.getApodsByRange.emit()
   }
 
   onSubmitApodByDate() {
