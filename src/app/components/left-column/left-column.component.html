@@ -12,26 +12,46 @@
       Astronomy Picture of the Day
     </h1>
   </div>
-  
-  
 
-  <div *ngIf="isInfoBoxVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" (click)="toggleInfoBox.emit()">
-  <div class="bg-primary rounded-xl max-w-md w-full p-6 shadow-xl border border-secondary relative"
-       (click)="$event.stopPropagation()">
-    <button mat-icon-button (click)="toggleInfoBox.emit()"
-            class="absolute top-2 right-2 text-white hover:text-accent">
-      <mat-icon fontIcon="close"></mat-icon>
-    </button>
-    <h2 class="text-xl font-bold text-textLight mb-2">Disclaimer</h2>
-    <p class="text-textLight text-opacity-90 text-sm leading-relaxed">
-      This project was developed solely for educational purposes and to demonstrate the use of Angular,
-      Spring Boot, and NASA's public APIs. All images and information provided within this application
-      are sourced from NASA's official APIs and are their intellectual property.
-    </p>
+  <div *ngIf="isInfoBoxVisible"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+     (click)="toggleInfoBox.emit()">
+
+    <div class="bg-primary rounded-xl max-w-md w-full p-6 shadow-xl border border-secondary relative"
+        (click)="$event.stopPropagation()">
+
+      <button mat-icon-button (click)="toggleInfoBox.emit()"
+              class="absolute top-2 right-2 text-white hover:text-accent">
+        <mat-icon fontIcon="close"></mat-icon>
+      </button>
+
+      <h2 class="text-xl font-bold text-textLight mb-2">Disclaimer</h2>
+      <p class="text-textLight text-opacity-90 text-sm leading-relaxed mb-4">
+        This project was developed solely for educational purposes and to demonstrate the use of Angular,
+        Spring Boot, and NASA's public APIs. All images and information provided within this application
+        are sourced from NASA's official APIs and are their intellectual property.
+      </p>
+
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold text-accent mb-4 text-center">Contact me</h3>
+      
+        <div class="grid grid-cols-2 gap-8 text-white/90">
+
+          <a href="https://github.com/LuisRamonGV" target="_blank"
+             class="hover:text-accent transition flex flex-col items-center justify-center p-2">
+            <mat-icon fontIcon="code" class="text-3xl mb-1"></mat-icon>
+            <span class="text-xs">GitHub</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/ramon-garcia2606/" target="_blank"
+             class="hover:text-accent transition flex flex-col items-center justify-center p-2">
+            <mat-icon fontIcon="business_center" class="text-3xl mb-1"></mat-icon>
+            <span class="text-xs">LinkedIn</span>
+          </a>
+        </div>
+      </div>           
+    </div>
   </div>
-</div>
-
-
 
   <div class="flex flex-col gap-6 md:gap-8 flex-1 pr-1">
 
@@ -86,5 +106,6 @@
          class="p-3 md:p-4 bg-error/90 text-textLight rounded-xl mt-2 z-10 animate-fade-in">
       ⚠️ {{ error }}
     </div>
+
   </div>
 </mat-card>

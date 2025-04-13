@@ -76,5 +76,4 @@ export class LeftColumnComponent {
   parseDate(dateString: string): Date | null {
     return dateString ? new Date(dateString) : null
   }
-
 }
