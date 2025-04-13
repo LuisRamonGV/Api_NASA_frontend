@@ -23,7 +23,7 @@ export class ApodComponentDashboard implements OnInit {
   error: string = ''
   startDate: string = ''
   endDate: string = ''
-  specificDate: string = ''
+  specificDate: Date | null = null
   isLoading: boolean = false
   isInfoBoxVisible = false
 
@@ -35,32 +35,30 @@ export class ApodComponentDashboard implements OnInit {
 
   getTodayApod() {
     this.startLoading()
-    this.http.get('https://api.apodnasa.top/apod')
-      .subscribe({
+    this.http.get('https://api.apodnasa.top/apod').subscribe({
+      next: (data) => {
+        this.apod = data
+        this.apodList = []
+        this.error = ''
+        this.resetLoading()
+      },
+      error: (err) => this.handleError(err)
+    })
+  }
+
+  getApodByDate() {
+    if (this.specificDate) {
+      const formattedDate = this.specificDate.toISOString().split('T')[0]
+      this.startLoading()
+      this.http.get(`https://api.apodnasa.top/apod?date=${formattedDate}`).subscribe({
         next: (data) => {
           this.apod = data
           this.apodList = []
           this.error = ''
           this.resetLoading()
         },
-        error: (err) => this.handleError(err)
+        error: (err) => this.handleError(err),
       })
-  }
-
-  getApodByDate() {
-    if (this.specificDate) {
-      this.startLoading()
-      this.http
-        .get(`https://api.apodnasa.top/apod?date=${this.specificDate}`)
-        .subscribe({
-          next: (data) => {
-            this.apod = data
-            this.apodList = []
-            this.error = ''
-            this.resetLoading()
-          },
-          error: (err) => this.handleError(err),
-        })
     }
   }
 
