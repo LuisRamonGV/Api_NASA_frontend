@@ -16,7 +16,7 @@ module.exports = {
         error: '#bb3e03',
       },
       backgroundImage: {
-        'space-gradient': 'linear-gradient(135deg, #1b095a, #2e003e, #1b095a)',
+        'star-field': 'radial-gradient(circle at top, #2c1b52, #0a021f)',
       },
       boxShadow: {
         'custom': '0 4px 14px -2px rgba(0, 0, 0, 0.25)',
