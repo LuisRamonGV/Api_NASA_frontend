@@ -35,7 +35,7 @@ export class LeftColumnComponent {
 
   set specificDate(value: Date | null) {
     if (this._specificDate !== value) {
-      this._specificDate = value;
+      this._specificDate = value
       this.specificDateChange.emit(value)
     }
   }
@@ -76,5 +76,5 @@ export class LeftColumnComponent {
   parseDate(dateString: string): Date | null {
     return dateString ? new Date(dateString) : null
   }
-  
+
 }
