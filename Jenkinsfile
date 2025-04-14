@@ -12,7 +12,10 @@ pipeline {
     stage('Build Frontend') {
       steps {
         dir('frontend') {
-          sh 'npm install'
+          echo 'Installing dependencies...'
+          sh 'npm ci --legacy-peer-deps'
+
+          echo 'Building frontend...'
           sh 'npm run build'
         }
       }
@@ -22,8 +25,8 @@ pipeline {
       steps {
         echo 'Deploying via SCP...'
         sh '''
-        scp -i ~/.ssh/id_rsa -r ./frontend/dist/* ubuntu@<3.147.222.36>:/home/ubuntu/frontend
-        ssh -i ~/.ssh/id_rsa ubuntu@<3.147.222.36> "docker compose restart frontend"
+        scp -i ~/.ssh/id_rsa -r ./frontend/dist/* ubuntu@3.147.222.36:/home/ubuntu/frontend
+        ssh -i ~/.ssh/id_rsa ubuntu@3.147.222.36 "docker compose restart frontend"
         '''
       }
     }
